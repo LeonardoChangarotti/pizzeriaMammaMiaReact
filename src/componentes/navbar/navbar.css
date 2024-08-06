@@ -1,0 +1,30 @@
+.containerNavbar{
+    background-color: #343a40;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem ;
+    
+}
+p{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.buttonNav{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: #343a40;
+    border-radius: 5%;
+    color: white;
+    border-style:none;
+
+}
+.boton1{
+    border: 1px solid white;
+}
+.botonCarrito{
+    border: 1px solid aqua;
+    color:aqua
+}

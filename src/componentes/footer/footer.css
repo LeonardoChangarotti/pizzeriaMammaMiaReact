@@ -1,0 +1,9 @@
+.footer{
+    background-color: #343a40;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem ;
+}
+/*text-white d-flex justify-content-center pt-3 pb-3 bg-dark

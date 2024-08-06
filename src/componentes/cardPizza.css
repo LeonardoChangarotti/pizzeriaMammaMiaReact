@@ -1,0 +1,47 @@
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .card-pizza {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    background-color: #f8f8f8;
+    text-align: center;
+    width: 300px;
+  }
+  
+  .pizza-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .buttons {
+    margin-top: 10px;
+  }
+  
+  .btn3 {
+    background-color: white;
+    color:  #343a40;
+    border: none;
+    padding: 5px 10px;
+    margin: 15px;
+    border-radius: 5px;
+    border: 1px  solid #343a40;
+  }
+  
+  .btn4 {
+    background-color: #343a40;
+    color:  white;
+    border: none;
+    padding: 5px 10px;
+    margin: 15px;
+    border-radius: 5px;
+    border: 1px  solid white;
+  }
+ 
+  

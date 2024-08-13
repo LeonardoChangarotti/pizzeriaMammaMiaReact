@@ -4,6 +4,7 @@ import Navbar from "./componentes/navbar/Navbar";
 import Home from "./componentes/Home";
 import Footer from "./componentes/footer/Footer";
 import Register from "./componentes/Register";
+import Login from "./componentes/Login";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Navbar />
       {/*<Home/>*/}
       <Register/>
+      <Login/>
       <Footer />
     </div>
   );

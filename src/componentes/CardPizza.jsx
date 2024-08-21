@@ -8,7 +8,12 @@ const CardPizza = ({ name, price, ingredients, img }) => {
       <img src={img} alt={name} className="pizza-img" />
       <h2>{name}</h2>
       <p>Precio: ${price}</p>
-      <p>Ingredientes: {ingredients.join(', ')}</p>
+      <p>Ingredientes:</p>
+      <ul style={{ listStyleType: 'none', paddingLeft: 0, margin: 0 }}> 
+        {ingredients.map((ingredient, index) => (
+          <li key={index}>{ingredient}</li>
+        ))}
+      </ul>
       <div className="buttons">
         <button className="btn3">Ver más</button>
         <button className="btn4">Añadir 🛒</button>

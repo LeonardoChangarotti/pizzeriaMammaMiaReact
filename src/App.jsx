@@ -6,6 +6,7 @@ import Footer from "./componentes/footer/Footer";
 import Register from "./componentes/Register";
 import Login from "./componentes/Login";
 import Cart from "./componentes/Cart";
+import Pizzas from "./componentes/Pizzas";
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
       {/*<Home/>*/}
       {/*<Register/>*/}
       {/*<Login/>*/}
-      <Cart />
+      {/*<Cart />*/}
+      <Pizzas />
       <Footer />
       
     </div>

@@ -1,24 +1,61 @@
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import { nanoid } from "nanoid";
+import React from "react";
 
-import React from 'react';
-import "../componentes/cardPizza.css"; // Asegúrate de crear este archivo CSS para los estilos
-
-const CardPizza = ({ name, price, ingredients, img }) => {
+const CardPizza = ({
+  desc = null, 
+  name,
+  price,
+  ingredients = [], 
+  img,
+  isHome, 
+}) => {
   return (
-    <div className="card-pizza">
-      <img src={img} alt={name} className="pizza-img" />
-      <h2>{name}</h2>
-      <p>Precio: ${price}</p>
-      <p>Ingredientes:</p>
-      <ul style={{ listStyleType: 'none', paddingLeft: 0, margin: 0 }}> 
-        {ingredients.map((ingredient, index) => (
-          <li key={index}>{ingredient}</li>
-        ))}
-      </ul>
-      <div className="buttons">
-        <button className="btn3">Ver más</button>
-        <button className="btn4">Añadir 🛒</button>
-      </div>
-    </div>
+    <Card border="warning" style={{ width: "25rem" }}>
+      <Card.Img variant="top" src={img} />
+      <Card.Body>
+        <Card.Title>{name}</Card.Title>
+        <hr className="border border-warning"/>
+        <div className="d-flex justify-content-center fs-6">
+          <Card.Text>Ingredientes</Card.Text>
+        </div>
+        <Card.Text className="d-flex justify-content-center gap-1 fs-6">
+          🍕
+          <ul
+            className="d-flex gap-2"
+            style={{ listStyleType: "none", padding: 0 }}
+          >
+            {ingredients.map((i) => (
+              <li key={nanoid()}>{i}</li>
+            ))}
+          </ul>
+        </Card.Text>
+        <hr className="border border-warning" />
+        {desc ? (
+          <div>
+            <Card.Text>{desc}</Card.Text>
+          </div>
+        ) : null}
+        <div className="d-flex justify-content-center">
+          <strong>Precio: ${(price)}</strong>
+        </div>
+        <div
+          className={
+            isHome
+              ? "d-flex justify-content-between p-3"
+              : "d-flex justify-content-center p-3"
+          }
+        >
+          {isHome ? (
+            <Button className="border" variant="light">
+              Ver mas 👀
+            </Button>
+          ) : null}
+          <Button variant="dark">Añadir 🛒</Button>
+        </div>
+      </Card.Body>
+    </Card>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import pizzas from './pizza'; // Importa el array de pizzas
-import "../componentes/cart.css"; 
+import pizzas from './Pizzas'; // Importa el array de pizzas
+import "../views/cart.css"; 
 
 const Cart = () => {
   const [cart, setCart] = useState(pizzas.map(pizza => ({ ...pizza, quantity: 1 })));

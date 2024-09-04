@@ -1,4 +1,4 @@
-import Header from "./Header";
+import Header from "../componentes/Header";
 import CardPizza from "./CardPizza";
 import { useEffect, useState } from "react";
 

@@ -1,50 +1,82 @@
-import React from 'react'
-import {formatCurrency} from './format'
-import './navbar.css'
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Navbar, Nav, Button, Container } from "react-bootstrap";
+import { formatCurrency } from "../helpers/format";
+import { Link, NavLink } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = () => {
-    const total = 25000;
-    const token = true;
+function NavbarApp() {
+  const { amount } = useContext(CartContext);
+  const { token, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const setActiveClass = ({ isActive }) =>
+    isActive
+      ? "text-warning mt-2 pe-2 text-decoration-none"
+      : "text-white mt-2 pe-2 text-decoration-none";
+
+  const handleLogout = () => {
+    logout();
+    navigate("/LoginPage");
+  };
+
   return (
-    <nav className='containerNavbar'>
-        <div className='d-flex'>
-            <p>Pizzería Mamma Mia!</p>
-            <Link to="/">
-            <button className="buttonNav boton1" href="#">🍕Home</button>
-            </Link>
+    <Navbar bg="dark" data-bs-theme="dark">
+      <Container className="d-flex justify-content-between align-items-center">
+        <Nav className="d-flex align-items-center gap-2">
+          <Navbar.Brand as={Link} to="/">
+            Pizzería Mamma Mia!
+          </Navbar.Brand>
 
+          <Button className="btn-sm" variant="outline-light">
+            <NavLink to="/" className={setActiveClass}>
+              🍕Home
+            </NavLink>
+          </Button>
 
-            {token ? (
-                <>
-                <Link to="/Profile">
-                <button className="buttonNav boton1" href="#">🔓Profile</button>
-                </Link>
-                <button className="buttonNav boton1" href="#">🔒Logout</button>
-                </>
-            ):(
-                <>
-                <Link to="/Login">
-                <button className="buttonNav boton1" href="#">🔐Login</button>
-                </Link>
-                <Link to="/Register">
-                <button className="buttonNav boton1" href="#">🔐Register</button>
-                </Link>
-                </>
-            )}
-      </div>
-      <div>
-      <Link to="/Cart">
-        <button className="buttonNav botonCarrito" href="#"> 🛒Total: {formatCurrency(total)}</button>
-        </Link>
-        
-      </div>
+          {token ? (
+            <>
+              <Button className="btn-sm" variant="outline-light">
+                <NavLink to="/profile" className={setActiveClass}>
+                  🔓Profile
+                </NavLink>
+              </Button>
 
+              <Button
+                className="btn-sm"
+                variant="outline-light"
+                onClick={handleLogout}
+              >
+                🔒Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button className="btn-sm" variant="outline-light">
+                <NavLink to="/LoginPage" className={setActiveClass}>
+                  🔐Login
+                </NavLink>
+              </Button>
+              <Button className="btn-sm" variant="outline-light">
+                <NavLink to="/registerPage" className={setActiveClass}>
+                  🔐Register
+                </NavLink>
+              </Button>
+            </>
+          )}
+        </Nav>
 
-
-      
-    </nav>
-  )
+        {token && (
+          <Button className="btn-sm" variant="outline-info">
+            <NavLink to="/Cart" className={setActiveClass}>
+              🛒Total: {formatCurrency(amount)}
+            </NavLink>
+          </Button>
+        )}
+      </Container>
+    </Navbar>
+  );
 }
 
-export default Navbar
+export default NavbarApp;

@@ -1,15 +1,28 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { Container, Card, Button, CardBody } from "react-bootstrap";
+import { AuthContext } from "../context/AuthContext";
 
 const Profile = () => {
+  const { user, logout } = useContext(AuthContext);
   return (
-    <div className="container mt-5">
-     <h2 className="mb-4">Perfil de Usuario</h2>
-     <p className="mb-3">leo@hotmail.com</p>
-     <button className="btn btn-primary mb-2">
-      Cerrar Sesión
-     </button>
-  </div>
-  )
-}
+    <Container className="d-flex flex-column align-items-center mt-4">
+      <Card border="warning" style={{ width: "40rem", height: "34rem" }}>
+        <Card.Body className="d-flex flex-column justify-content-center align-items-center">
+          <Card.Title className="text-center pb-3 pt-3">
+            <strong>{user.email}</strong>
+          </Card.Title>
+          <Button
+            className="border btn btn-dark"
+            variant="outline-light"
+            type="submit"
+            onClick={logout}
+          >
+            Cerrar sesión
+          </Button>
+        </Card.Body>
+      </Card>
+    </Container>
+  );
+};
 
-export default Profile
+export default Profile;

@@ -1,18 +1,26 @@
 import { useEffect, useState } from "react";
 import CardPizza from "./CardPizza";
+import { useParams } from "react-router-dom";
 
 function Pizzas() {
+  const  { pizza_id } = useParams()
   const [pizza, setPizza] = useState({});
-
+  
   useEffect(() => {
     getPizza();
   }, []);
 
   const getPizza = async () => {
-    const res = await fetch("http://localhost:5000/api/pizzas/p001");
-    const pizzaData = await res.json();
-
-    setPizza(pizzaData);
+    try {
+      const res = await fetch(`http://localhost:5000/api/pizzas/${pizza_id}`);
+      if( res.status != 200 ){
+        throw new Error('error al obtener la pizza')
+      }
+      const pizzaData = await res.json();
+      setPizza(pizzaData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

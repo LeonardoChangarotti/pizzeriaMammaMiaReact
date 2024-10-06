@@ -1,58 +1,105 @@
-import React, { useState } from 'react';
+import { useContext, useState } from "react";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const LoginPage = () => {
+  const { userLogin } = useContext(AuthContext)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const funcionBotonLlamada = (e) => {
+  const navigate = useNavigate();
+  
+  const validaFormulario = async (e) => {
     e.preventDefault();
-
-    if (!email || !password) {
-      alert('Todos los campos son obligatorios.');
-      return;  // no puede haber campos vacíos
+    if (email.toLowerCase().trim() == "" || password.trim() == "") {
+      Swal.fire({
+        title: "Error!",
+        text: "Todos los campos deben ser completados",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+      navigate("/registerPage");
+    } else {
+      if (password.length >= 6) {
+        const user = await authUser()
+        if(user){
+          Swal.fire({
+            title: "Success!",
+            text: "Haz iniciado sesión correctamente",
+            icon: "success",
+            confirmButtonText: "Cerrar",
+          });
+          navigate('/Profile')
+        }
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "el password debe ser superior 6 caracteres",
+          icon: "error",
+          confirmButtonText: "Cerrar",
+        });
+        navigate("/registerPage");
+      }
     }
-
-    if (password.length < 6) {
-      alert('El password debe tener al menos 6 caracteres.');
-      return; // clave mas 6 
-    }
-
-    alert('Login exitoso.');
+    
+    setEmail("");
+    setPassword("");
   };
 
+  const authUser = async () =>{
+    return userLogin(email, password)
+  }
+  
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">Formulario de Login</h2>
-      <form onSubmit={funcionBotonLlamada}>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="Enter your mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+    <>
+      <div className="d-flex justify-content-center align-items-center">
+        <div
+          style={{ width: "25rem" }}
+          className="d-flex justify-content-center flex-column align-items-center border border-3 border-warning-subtle rounded-3 gap-3 mt-3 mb-3 pt-3 pb-3"
+        >
+          <h1>Inicio de sesión</h1>
+          <div>
+            <form onSubmit={(e) => validaFormulario(e)}>
+              <div className="mb-3">
+                <label htmlFor="exampleInputEmail1" className="form-label">
+                  Correo electrónico
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  aria-describedby="emailHelp"
+                  placeholder="Ingresa tu email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
+                  Contraseña
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="pass"
+                  placeholder="Ingresa tu contraseña"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="d-flex justify-content-center">
+                <button type="submit" className="btn btn-dark">
+                  Enviar
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-
-        <button type="submit" className="btn btn-primary mb-2">Login</button>
-      </form>
-    </div>
+      </div>
+    </>
   );
-}
+};
 
 export default Login;
 
